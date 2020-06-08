@@ -1,40 +1,61 @@
 package com.svulinovic.cityapi;
 
-import com.svulinovic.cityapi.controller.CityController;
 import com.svulinovic.cityapi.model.request.CreateCityRequest;
-import com.svulinovic.cityapi.service.CityService;
-import com.svulinovic.cityapi.service.UserService;
+import com.svulinovic.cityapi.model.request.CreateUserRequest;
+import com.svulinovic.cityapi.model.request.LoginRequest;
+import com.svulinovic.cityapi.util.Helper;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(CityController.class)
-public class CityControllerTests {
+@SpringBootTest
+@ActiveProfiles("test")
+public class CityAPITests {
 
-    @Autowired
     private MockMvc mvc;
 
-    @MockBean
-    private CityService cityService;
+    @Autowired
+    private WebApplicationContext context;
 
-    @MockBean
-    private UserService userService;
+    @Before
+    public void setup() {
+        this.mvc = MockMvcBuilders.webAppContextSetup(context).build();
+    }
 
-    //TODO dodati testne slučajeve
-    
-    //zakometirano dok ne saznam zašto testovi ne prolaze :)
+    @Test
+    public void createUser__login_200() throws Exception {
 
-    /*@Test
+        CreateUserRequest request = getCreateUserRequest();
+
+        mvc.perform(post("/user")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(Helper.asJsonString(request))
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        LoginRequest loginRequest = getLoginRequest();
+
+        mvc.perform(post("/user/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(Helper.asJsonString(loginRequest))
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
     public void createCity_401() throws Exception {
 
         CreateCityRequest request = getCreateCityRequest();
@@ -61,7 +82,7 @@ public class CityControllerTests {
         mvc.perform(delete("/cities/1/favourites")
                 .header(AUTHORIZATION, getToken()))
                 .andExpect(status().isUnauthorized());
-    }*/
+    }
 
     @Test
     public void getAllCities_200() throws Exception {
@@ -77,6 +98,20 @@ public class CityControllerTests {
         mvc.perform(get("/cities/sorted")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+
+    private CreateUserRequest getCreateUserRequest() {
+        CreateUserRequest request = new CreateUserRequest();
+        request.setEmail("suzana@gmail.com");
+        request.setPassword("password");
+        return request;
+    }
+
+    private LoginRequest getLoginRequest() {
+        LoginRequest request = new LoginRequest();
+        request.setEmail("suzana@gmail.com");
+        request.setPassword("password");
+        return request;
     }
 
     private String getToken() {
