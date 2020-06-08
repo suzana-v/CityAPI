@@ -1,0 +1,10 @@
+insert into City(id, name, description, population, ctime) values (1, 'Zagreb', 'Grad Zagreb', 790017, CURRENT_TIMESTAMP());
+insert into City(id, name, description, population, ctime) values (2, 'Split', 'Splitsko-dalmatinska županija', 178102, CURRENT_TIMESTAMP());
+insert into City(id, name, description, population, ctime) values (3, 'Rijeka', 'Primorsko-goranska županija', 128624, CURRENT_TIMESTAMP());
+insert into City(id, name, description, population, ctime) values (4, 'Osijek', 'Osječko-baranjska županija', 108048, CURRENT_TIMESTAMP());
+insert into City(id, name, description, population, ctime) values (5, 'Zadar', 'Zadarska županija', 75062, CURRENT_TIMESTAMP());
+insert into City(id, name, description, population, ctime) values (6, 'Velika Gorica', 'Zagrebačka županija', 63517, CURRENT_TIMESTAMP());
+insert into City(id, name, description, population, ctime) values (7, 'Slavonski Brod', 'Brodsko-posavska županija', 59141, CURRENT_TIMESTAMP());
+insert into City(id, name, description, population, ctime) values (8, 'Pula', 'Istarska županija', 57460, CURRENT_TIMESTAMP());
+insert into City(id, name, description, population, ctime) values (9, 'Kutina', 'Sisačko-moslavačka županija', 22760, CURRENT_TIMESTAMP());
+insert into City(id, name, description, population, ctime) values (10, 'Dugo Selo', 'Zagrebačka županija', 17466, CURRENT_TIMESTAMP());
